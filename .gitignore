@@ -1,1 +1,4 @@
 src/crawler/config/credentials.yaml
+opentapioca
+lxml
+solr-8.11.1
