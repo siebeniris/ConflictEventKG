@@ -1,4 +1,4 @@
-@prefix : <http://www.semanticweb.org/yiyichen/ontologies/2022/2/untitled-ontology-17#> .
+@prefix : <https://siebeniris.github.io/ConflictEventKG/> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix dbo: <http://dbpedia.org/ontology/> .
 @prefix nee: <http://www.ics.forth.gr/isl/oae/core#> .
@@ -7,8 +7,10 @@
 @prefix sem: <http://semanticweb.cs.vu.nl/2009/11/sem/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cekg: <https://siebeniris.github.io/ConflictEventKG/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix time: <http://www.w3.org/2006/time#> .
 @prefix lcc-lr: <https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/> .
 @prefix schema: <http://schema.org/> .
 @prefix sioc_t: <http://rdfs.org/sioc/types#> .
@@ -17,7 +19,8 @@
 @prefix eventKG-s: <http://eventKG.l3s.uni-hannover.de/schema/> .
 @base <https://siebeniris.github.io/ConflictEventKG/> .
 
-<https://siebeniris.github.io/ConflictEventKG/> rdf:type owl:Ontology .
+<https://siebeniris.github.io/ConflictEventKG/> rdf:type owl:Ontology ;
+                                                 rdfs:label "Conflict Event Knowledge Graph"^^rdfs:Literal .
 
 #################################################################
 #    Object Properties
@@ -27,7 +30,7 @@
 eventKG-s:endUnitType rdf:type owl:ObjectProperty ;
                       rdfs:domain sem:Core ,
                                   sem:Role ;
-                      rdfs:range <http://www.w3.org/2006/time#TemporalUnit> .
+                      rdfs:range time:TemporalUnit .
 
 
 ###  http://eventKG.l3s.uni-hannover.de/schema/extractedFrom
@@ -41,7 +44,7 @@ eventKG-s:extractedFrom rdf:type owl:ObjectProperty ;
 eventKG-s:startUnitType rdf:type owl:ObjectProperty ;
                         rdfs:domain sem:Core ,
                                     sem:Role ;
-                        rdfs:range <http://www.w3.org/2006/time#TemporalUnit> .
+                        rdfs:range time:TemporalUnit .
 
 
 ###  http://rdfs.org/sioc/ns#has_creator
@@ -90,12 +93,6 @@ nee:hasMatchedURI rdf:type owl:ObjectProperty ;
                   rdfs:range rdfs:Resource .
 
 
-###  http://www.semanticweb.org/yiyichen/ontologies/2022/2/untitled-ontology-17#detected
-:detected rdf:type owl:ObjectProperty ;
-          rdfs:domain sioc:Post ;
-          rdfs:range sem:Event .
-
-
 ###  http://www.w3.org/1999/02/22-rdf-syntax-ns#object
 rdf:object rdf:type owl:ObjectProperty ;
            rdfs:domain eventKG-s:Relation ;
@@ -112,6 +109,12 @@ rdf:subject rdf:type owl:ObjectProperty ;
 owl:sameAs rdf:type owl:ObjectProperty ;
            rdfs:domain sem:Core ;
            rdfs:range rdfs:Resource .
+
+
+###  https://siebeniris.github.io/ConflictEventKG/detected
+cekg:detected rdf:type owl:ObjectProperty ;
+              rdfs:domain sioc:Post ;
+              rdfs:range sem:Event .
 
 
 #################################################################
@@ -186,8 +189,7 @@ rdfs:label rdf:type owl:DatatypeProperty ;
                        sem:Actor ,
                        sem:RoleType ,
                        rdfs:Resource ;
-           rdfs:range rdfs:Literal ;
-           rdfs:comment "represents a label of either Resource or a hashtag." .
+           rdfs:range rdfs:Literal .
 
 
 #################################################################
@@ -259,7 +261,7 @@ rdfs:Resource rdf:type owl:Class ;
 
 
 ###  http://www.w3.org/2006/time#TemporalUnit
-<http://www.w3.org/2006/time#TemporalUnit> rdf:type owl:Class .
+time:TemporalUnit rdf:type owl:Class .
 
 
 #################################################################
@@ -289,28 +291,35 @@ schema:ShareAction rdf:type owl:NamedIndividual ,
                             schema:Action .
 
 
-###  http://www.semanticweb.org/yiyichen/ontologies/2022/2/untitled-ontology-17#QuoteAction
-:QuoteAction rdf:type owl:NamedIndividual ,
-                      schema:Action .
-
-
 ###  http://www.w3.org/2006/time#unitDay
-<http://www.w3.org/2006/time#unitDay> rdf:type owl:NamedIndividual ,
-                                               <http://www.w3.org/2006/time#TemporalUnit> .
+time:unitDay rdf:type owl:NamedIndividual ,
+                      time:TemporalUnit .
 
 
 ###  http://www.w3.org/2006/time#unitMonth
-<http://www.w3.org/2006/time#unitMonth> rdf:type owl:NamedIndividual ,
-                                                 <http://www.w3.org/2006/time#TemporalUnit> .
+time:unitMonth rdf:type owl:NamedIndividual ,
+                        time:TemporalUnit .
 
 
 ###  http://www.w3.org/2006/time#unitYear
-<http://www.w3.org/2006/time#unitYear> rdf:type owl:NamedIndividual ,
-                                                <http://www.w3.org/2006/time#TemporalUnit> .
+time:unitYear rdf:type owl:NamedIndividual ,
+                       time:TemporalUnit .
 
 
 ###  https://cidoc-crm.org/html/cidoc_crm_v7.1.1.html#en
 cidoc-crm:en rdf:type owl:NamedIndividual .
+
+
+###  https://siebeniris.github.io/ConflictEventKG/QuoteAction
+cekg:QuoteAction rdf:type owl:NamedIndividual ,
+                          schema:Action .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+rdfs:label rdfs:comment "represents a label of either Resource or a hashtag." .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

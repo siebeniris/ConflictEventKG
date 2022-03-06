@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Conflict Event Knowledge Graph</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    
+    <style>
+        #pylode {
+            position: fixed;
+            top: 130px;
+            left: -60px;
+            font-size: small;
+            transform: rotate(-90deg);
+            color: grey;
+        }
+        #pylode a {
+            font-size: 2em;
+            font-weight: bold;
+            text-decoration: none;
+            color: #005A9C;
+        }
+        #pylode a:hover {
+            color: #333;
+        }
+
+        .cardinality {
+            font-style: italic;
+            color: #aa00aa;
+        }
+
+        dt {
+            font-weight: bold;
+            padding: 5px 0 5px 0;
+        }
+
+        ul.hlist {
+            list-style-type: none;
+            border: 1px solid navy;
+            padding:5px;
+            background-color: #F4FFFF;
+        }
+
+        ul.hierarchy {
+            border: 1px solid navy;
+            padding: 5px 25px 5px 25px;
+            background-color: #F4FFFF;
+        }
+
+
+        ul.hlist li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        .entity {
+            border: 1px solid navy;
+            margin:5px 0 5px 0;
+            padding: 5px;
+        }
+
+        .entity th {
+            width: 150px;
+            vertical-align: top;
+        }
+
+        .entity th,
+        .entity td {
+            padding-bottom: 20px;
+        }
+
+        .entity table th {
+            text-align: left;
+        }
+
+        section#overview img {
+            max-width: 1000px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            text-align: left
+        }
+        h1, h2, h3 {
+            color: #005A9C; background: white
+        }
+        h1 {
+            font: 170% sans-serif;
+            line-height: 110%;
+        }
+        h2 {
+            font: 140% sans-serif;
+            margin-top:40px;
+        }
+        h3 {
+            font: 120% sans-serif;
+            margin-top: 3px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid navy;
+        }
+        h4 { font: bold 100% sans-serif }
+        h5 { font: italic 100% sans-serif }
+        h6 { font: small-caps 100% sans-serif }
+
+
+        body {
+            padding: 2em 70px 2em 70px;
+            margin: 0;
+            font-family: sans-serif;
+            color: black;
+            background: white;
+            background-position: top left;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            text-align: justify;
+        }
+
+        section {
+            max-width: 1500px;
+        }
+
+        .figure {
+            margin-bottom: 20px;
+        }
+
+        :link { color: #00C; background: transparent }
+        :visited { color: #609; background: transparent }
+        a:active { color: #C00; background: transparent }
+
+        .sup-c,
+        .sup-op,
+        .sup-fp,
+        .sup-dp,
+        .sup-ap,
+        .sup-p,
+        .sup-ni,
+        .sup-cp,
+        .sup-cl {
+            cursor:help;
+            margin-left: 3px;
+        }
+
+        .sup-c {
+            color:orange;
+        }
+
+        .sup-op {
+            color:navy;
+        }
+
+        .sup-fp {
+            color:lightskyblue;
+        }
+
+        .sup-dp {
+            color:green;
+        }
+
+        .sup-ap {
+            color:darkred;
+        }
+
+        .sup-p {
+            color:black;
+        }
+
+        .sup-ni {
+            color:brown;
+        }
+
+        .sup-cp {
+            color:orange;
+        }
+
+        .sup-cl {
+            color:darkred;
+        }
+
+        code {
+            font-size: large;
+            color: darkred;
+        }
+
+        /* less prominent links for properties */
+        .proplink {
+            color: #336;
+            text-decoration: none;
+        }
+    </style>
+    
+    <script type="application/ld+json">
+      [
+  {
+    "@id": "https://siebeniris.github.io/ConflictEventKG/",
+    "@type": [
+      "https://schema.org/DefinedTermSet"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Conflict Event Knowledge Graph"
+      }
+    ]
+  }
+]
+    </script>
+</head>
+<body>
+  <div id="pylode">made by <a href="http://github.com/rdflib/pyLODE">
+    <span style="color:#329545;">p</span><span style="color:#f9cb33;">y</span>LODE</a>
+    <span style="font-size:smaller;">2.8.3</span>
+  </div>
+  <h1>Conflict Event Knowledge Graph</h1>
+<h3><em>A taxonomy</em></h3>
+  <section id="conceptscheme">
+      <h2 style="display:none;">Concept Scheme</h2>
+      <dl>
+          <dt>URI</dt>
+          <dd><code>https://siebeniris.github.io/ConflictEventKG/</code></dd>
+          <dt>Ontology RDF</dt>
+          <dd><a href="data_file.ttl">RDF (turtle)</a></dd>
+      </dl>
+  </section>
+  <section id="toc">
+      <h2>Table of Contents</h2>
+      <ol>
+          <li><a href="#concepts">Concepts</a></li>
+          <li><a href="#namespaces">Namespaces</a></li>
+          <li><a href="#legend">Legend</a></li>
+      </ol>
+  </section>
+  <section id="overview">
+      <h2>Overview</h2>
+      <div class="figure">
+          <div style="width:500px; height:500px; background-color: black;">&nbsp;</div>
+          <div class="caption"><strong>Figure 1:</strong> Taxonomy overview</div>
+      </div>
+  </section>
+  <section id="concepts">
+    <h2>Concepts <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <ul class="hierarchy">
+<li><a href="http://rdfs.org/sioc/ns#Post">sioc:Post</a></li><li><a href="http://rdfs.org/sioc/ns#UserAccount">sioc:UserAccount</a></li><li><a href="http://rdfs.org/sioc/types#Tag">sioc_t:Tag</a></li><li><a href="http://schema.org/Action">schema:Action</a></li><li><a href="http://schema.org/InteractionCounter">schema:InteractionCounter</a></li><li><a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a>
+<ul><li><a href="http://semanticweb.cs.vu.nl/2009/11/sem/Actor">sem:Actor</a></li></ul>
+<ul><li><a href="http://semanticweb.cs.vu.nl/2009/11/sem/Event">sem:Event</a></li></ul></li><li><a href="http://semanticweb.cs.vu.nl/2009/11/sem/Role">sem:Role</a>
+<ul><li><a href="http://eventKG.l3s.uni-hannover.de/schema/Relation">eventKG-s:Relation</a></li></ul></li><li><a href="http://semanticweb.cs.vu.nl/2009/11/sem/RoleType">sem:RoleType</a></li><li><a href="http://www.ics.forth.gr/isl/oae/core#Entity">nee:Entity</a></li><li><a href="http://www.w3.org/2000/01/rdf-schema#Resource">rdfs:Resource</a></li><li><a href="http://www.w3.org/2006/time#TemporalUnit">http://www.w3.org/2006/time#TemporalUnit</a></li>
+</ul>
+    <div class="entity concept" id="Relation">
+        <h3>Relation<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://eventKG.l3s.uni-hannover.de/schema/Relation</code></td>
+            </tr>
+            <tr>
+                <th>Broader Concepts</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Role">sem:Role</a><sup class="sup-cp" title="concept">cp</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity concept" id="Post">
+        <h3>Post<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://rdfs.org/sioc/ns#Post</code></td>
+            </tr>
+            <tr>
+                <th>Definition</th>
+                <td>
+                    a Tweet<br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity concept" id="UserAccount">
+        <h3>UserAccount<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://rdfs.org/sioc/ns#UserAccount</code></td>
+            </tr>
+            <tr>
+                <th>Definition</th>
+                <td>
+                    A user account contains an encrypted id.<br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity concept" id="Tag">
+        <h3>Tag<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://rdfs.org/sioc/types#Tag</code></td>
+            </tr>
+            <tr>
+                <th>Definition</th>
+                <td>
+                    Hashtag of the tweet.<br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity concept" id="Action">
+        <h3>Action<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://schema.org/Action</code></td>
+            </tr>
+            <tr>
+                <th>Definition</th>
+                <td>
+                    Action that includes LikeAction, ShareAction and ReplyAction.
+A Tweet can be liked, shared and replied.<br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity concept" id="InteractionCounter">
+        <h3>InteractionCounter<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://schema.org/InteractionCounter</code></td>
+            </tr>
+            <tr>
+                <th>Definition</th>
+                <td>
+                    A class that represents the public metrics of a tweet, includes LikeAction (like_count), ShareAction (retweet_count), ReplyAction (reply_count).<br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity concept" id="Actor">
+        <h3>Actor<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/Actor</code></td>
+            </tr>
+            <tr>
+                <th>Broader Concepts</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a><sup class="sup-cp" title="concept">cp</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity concept" id="Core">
+        <h3>Core<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/Core</code></td>
+            </tr>
+            <tr>
+                <th>Definition</th>
+                <td>
+                    The SEM Core class contains all entities that make up the context of an event: Events, Actors, Places, Times. This class is meant to be extended for each application domain.<br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Narrower Concepts</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Actor">sem:Actor</a><sup class="sup-cp" title="concept">cp</sup><br/>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Event">sem:Event</a><sup class="sup-cp" title="concept">cp</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity concept" id="Event">
+        <h3>Event<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/Event</code></td>
+            </tr>
+            <tr>
+                <th>Broader Concepts</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a><sup class="sup-cp" title="concept">cp</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity concept" id="Role">
+        <h3>Role<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/Role</code></td>
+            </tr>
+            <tr>
+                <th>Narrower Concepts</th>
+                <td>
+                    <a href="http://eventKG.l3s.uni-hannover.de/schema/Relation">eventKG-s:Relation</a><sup class="sup-cp" title="concept">cp</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity concept" id="RoleType">
+        <h3>RoleType<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/RoleType</code></td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity concept" id="Entity">
+        <h3>Entity<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://www.ics.forth.gr/isl/oae/core#Entity</code></td>
+            </tr>
+            <tr>
+                <th>Definition</th>
+                <td>
+                    Represents an identified entity from wikipedia.<br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity concept" id="Resource">
+        <h3>Resource<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://www.w3.org/2000/01/rdf-schema#Resource</code></td>
+            </tr>
+            <tr>
+                <th>Definition</th>
+                <td>
+                    Identify the resource of an entity, which is a URI of Wikidata.<br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity concept" id="TemporalUnit">
+        <h3>TemporalUnit<sup title="Concept" class="sup-cp">cp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://www.w3.org/2006/time#TemporalUnit</code></td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+  <section id="namespaces">
+    <h2>Namespaces <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <dl>
+        <dt>cekg</dt>
+        <dd><code>https://siebeniris.github.io/ConflictEventKG/</code></dd>
+        <dt>cidoc-crm</dt>
+        <dd><code>https://cidoc-crm.org/html/cidoc_crm_v7.1.1.html#</code></dd>
+        <dt>dbo</dt>
+        <dd><code>http://dbpedia.org/ontology/</code></dd>
+        <dt>dc</dt>
+        <dd><code>http://purl.org/dc/elements/1.1/</code></dd>
+        <dt>dcterms</dt>
+        <dd><code>http://purl.org/dc/terms/</code></dd>
+        <dt>eventKG-s</dt>
+        <dd><code>http://eventKG.l3s.uni-hannover.de/schema/</code></dd>
+        <dt>lcc-lr</dt>
+        <dd><code>https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/</code></dd>
+        <dt>nee</dt>
+        <dd><code>http://www.ics.forth.gr/isl/oae/core#</code></dd>
+        <dt>owl</dt>
+        <dd><code>http://www.w3.org/2002/07/owl#</code></dd>
+        <dt>rdf</dt>
+        <dd><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></dd>
+        <dt>rdfs</dt>
+        <dd><code>http://www.w3.org/2000/01/rdf-schema#</code></dd>
+        <dt>schema</dt>
+        <dd><code>http://schema.org/</code></dd>
+        <dt>sdo</dt>
+        <dd><code>https://schema.org/</code></dd>
+        <dt>sem</dt>
+        <dd><code>http://semanticweb.cs.vu.nl/2009/11/sem/</code></dd>
+        <dt>sioc</dt>
+        <dd><code>http://rdfs.org/sioc/ns#</code></dd>
+        <dt>sioc_t</dt>
+        <dd><code>http://rdfs.org/sioc/types#</code></dd>
+        <dt>skos</dt>
+        <dd><code>http://www.w3.org/2004/02/skos/core#</code></dd>
+        <dt>xsd</dt>
+        <dd><code>http://www.w3.org/2001/XMLSchema#</code></dd>
+    </dl>
+</section>
+
+  <section id="legend">
+    <h2>Legend</h2>
+    <table class="entity">
+      <tr><td><sup class="sup-cl" title="Collections">cl</sup></td><td>Collections</td></tr>
+      <tr><td><sup class="sup-cp" title="Concepts">cp</sup></td><td>Concepts</td></tr>
+    </table>
+  </section>
+</body>
+</html>
