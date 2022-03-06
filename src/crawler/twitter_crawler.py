@@ -18,9 +18,9 @@ import requests
 import numpy as np
 import pandas as pd
 
-from utils.api_authen import load_academic_research_bearer
-from utils.utils import get_params, timing, chunks
-from utils.logger import logger
+from src.utils.api_authen import load_academic_research_bearer
+from src.utils.utils import get_params, timing
+from src.utils.logger import logger
 
 logger(output_file=f"{datetime.now()}.log")
 
@@ -47,16 +47,13 @@ def get_last_start_time(dir_path: str) -> Any:
 
 
 @timing
-def query_main(api_name, country_iso2, keywords_list, idx, start_year, end_year, LEN_chunks, lang, Lang_def):
+def query_main(api_name, keywords_list, idx, start_year, lang):
     f"""
     specify hashtag operations
     :param api_name:
-    :param country_iso2:
     :param keywords_list: list of keywords
     :param idx: the index of the keywords_list
     :param start_year: the start year
-    :param end_year: the end year
-    :param LEN_chunks: length of keywords chunks
     :param lang: language of the keywords.
     :return:
     """
@@ -68,58 +65,27 @@ def query_main(api_name, country_iso2, keywords_list, idx, start_year, end_year,
 
     tweets_fields, poll_fields, media_fields, user_fields, place_fields, tweets_expansions = get_params(cwd)
 
-    startdate = start_year + '-01-01T00:00:00.00Z'
-
-    # change end time accordingly.
-    # enddate = end_year + '-08-02T00:00:00.00Z'
-    # set up start_time and end_time parameters in API call
-    # max_results, to maximum 100 when there are special expansions.
+    startdate = start_year + '-02-24T00:00:00.00Z'
 
     # idx batch of keywords
     keywords = keywords_list[idx]
 
-
     # output directory root output/crawled/
     # check if the data dir for a country exists.
-    output_dir_root = os.path.join(cwd, 'output', 'crawled', country_iso2)
+    output_dir_root = os.path.join(cwd, "data", 'output', 'crawled')
     if not os.path.exists(output_dir_root):
         os.mkdir(output_dir_root)
 
-    # the other 14 langauges.
-    # batch2/lang/idx.
-    # output_dir_root_batch = os.path.join(output_dir_root, "batch2")
-    output_dir_root_batch = os.path.join(output_dir_root, "batch3")
-    if not os.path.exists(output_dir_root_batch):
-        os.mkdir(output_dir_root_batch)
-
-    # output_dir_root_lang = os.path.join(output_dir_root_batch, lang)
-    # if not os.path.exists(output_dir_root_lang):
-    #     os.mkdir(output_dir_root_lang)
-
-    output_dir_ = os.path.join(output_dir_root_batch, str(idx))
+    output_dir_ = os.path.join(output_dir_root, str(idx))
 
     # output_dir_ = os.path.join(output_dir_root, str(idx))
     if not os.path.exists(output_dir_):
         os.mkdir(output_dir_)
 
-    # output_dir = os.path.join(output_dir_, lang)
-    # if not os.path.exists(output_dir):
-    #     os.mkdir(output_dir)
-
     # query, geo country code, no retweets, no promotion.
-    if Lang_def == "mix":
-        query = "({}) has:geo place_country:{} -is:retweet -is:nullcast " \
-                "-lang:en -lang:fi -lang:fr -lang:de -lang:el -lang:nl -lang:hu -lang:it -lang:pl -lang:es " \
-                "-lang:sv".format(
-            ' OR '.join(keywords), country_iso2, Lang_def)
-    elif Lang_def == "und":
-        query = "({}) has:geo place_country:{} -is:retweet -is:nullcast " \
-                "-lang:en -lang:fi -lang:fr -lang:de -lang:el -lang:nl -lang:hu -lang:it -lang:pl -lang:es " \
-                "-lang:sv -lang:cs -lang:da -lang:pt -lang:ro -lang:no ".format(
-            ' OR '.join(keywords), country_iso2, Lang_def)
-    else:
-        query = "({}) has:geo place_country:{} -is:retweet -is:nullcast lang:{}".format(
-            ' OR '.join(keywords), country_iso2, Lang_def)
+
+    query = "({}) (russia OR ukraine) -is:retweet -is:nullcast lang:{}".format(
+            ' OR '.join(keywords), lang)
     print(query)
     print('query length => ', len(query))
     assert len(query) <= 1024
@@ -137,7 +103,7 @@ def query_main(api_name, country_iso2, keywords_list, idx, start_year, end_year,
                         'poll.fields': poll_fields,
                         'place.fields': place_fields,
                         'expansions': tweets_expansions,
-                        'start_time': startdate, 'end_time': start_time, 'max_results': 100}
+                        'start_time': startdate, 'end_time': start_time, 'max_results': 500}
     else:
         query_params = {'query': query,
                         'tweet.fields': tweets_fields,
@@ -146,7 +112,7 @@ def query_main(api_name, country_iso2, keywords_list, idx, start_year, end_year,
                         'poll.fields': poll_fields,
                         'place.fields': place_fields,
                         'expansions': tweets_expansions,
-                        'start_time': startdate, 'max_results': 100}
+                        'start_time': startdate, 'end_time': "2022-03-05T00:00:00.00Z", 'max_results': 500}
 
     # Updated code: 16.Dec 2021
     # https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/main/Full-Archive-Search/full-archive-search.py
@@ -163,13 +129,13 @@ def query_main(api_name, country_iso2, keywords_list, idx, start_year, end_year,
     # Connect to end point.
     response = requests.request('GET', search_url, auth=bearer_oauth, params=query_params)
     print(response.status_code)
-    return response, output_dir_, country_iso2
+    return response, output_dir_
 
 
-def main(api_name, country_iso2, keywords, idx, start_year, end_year, LEN_chunks, lang, LANG_DEF, flag=True):
+def main(api_name, keywords, idx, start_year, lang, flag=True):
+    len_chunks = len(keywords)
     t = datetime.today().strftime('%Y%m%d%H%M%S')
-    response, output_dir, countryiso2 = query_main(api_name, country_iso2, keywords, idx, start_year, end_year,
-                                                   LEN_chunks, lang, LANG_DEF)
+    response, output_dir = query_main(api_name, keywords, idx, start_year, lang)
     while flag:
 
         if response.status_code == 200:
@@ -189,7 +155,7 @@ def main(api_name, country_iso2, keywords, idx, start_year, end_year, LEN_chunks
                 print('crawled {} tweets'.format(len(df)))
 
                 # output file path.
-                outfile = os.path.join(output_dir, countryiso2 + '_' + t + '_' + str(min_time) + '.gz')
+                outfile = os.path.join(output_dir, "conflict" + '_' + t + '_' + str(min_time) + '.gz')
 
                 with gzip.open(outfile, 'w') as outfile:
                     print(f'writing tweets to {outfile}....')
@@ -197,29 +163,27 @@ def main(api_name, country_iso2, keywords, idx, start_year, end_year, LEN_chunks
 
                 if flag:
                     time.sleep(5)
-                    main(api_name, countryiso2, keywords, idx, start_year, end_year, LEN_chunks, lang, LANG_DEF,
-                         flag=True)
+                    main(api_name, keywords, idx, start_year, lang, flag=True)
 
-                # TODO: CODES HERE GO INTO LOOPS, FIX. WITH THE LAST INDEX
 
+            # TODO: CODES HERE GO INTO LOOPS, FIX. WITH THE LAST INDEX
             except Exception:
                 print(f'Exception {Exception}')
-                if idx < LEN_chunks:
+                if idx < len_chunks:
                     idx += 1
                     print('idx:', idx)
                     time.sleep(5)
-                    main(api_name, countryiso2, keywords, idx, start_year, end_year, LEN_chunks, lang, LANG_DEF,
-                         flag=True)
+                    main(api_name, keywords, idx, start_year, lang, flag=True)
                 break
 
         # no output
         elif response.status_code == 400:
             print(response.text)
-            if idx < LEN_chunks - 1:
+            if idx < len_chunks - 1:
                 idx += 1
                 print('idx:', idx)
                 time.sleep(5)
-                main(api_name, countryiso2, keywords, idx, start_year, end_year, LEN_chunks, lang, LANG_DEF, flag=True)
+                main(api_name, keywords, idx, start_year, lang, flag=True)
             else:
                 exit()
 
@@ -235,52 +199,29 @@ def main(api_name, country_iso2, keywords, idx, start_year, end_year, LEN_chunks
 
             else:
                 print(response.text)
-                output_dir_root = os.path.join(cwd, 'output', 'crawled', country_iso2)
+                output_dir_root = os.path.join(cwd, 'output', 'crawled')
                 max_id = sorted([int(x) for x in os.listdir(output_dir_root)])[-1]
                 print('max id ', max_id)
                 time.sleep(5)
-                main(api_name, country_iso2, keywords, max_id, start_year, end_year, LEN_chunks, lang, LANG_DEF,
-                     flag=True)
+                main(api_name, keywords, idx, start_year, lang, flag=True)
         else:
             flag = False
             print(response.text)
             raise Exception(response.status_code, response.text)
-            break
 
 
 if __name__ == '__main__':
     # import plac
     # plac.call(main)
     cwd = os.getcwd()
-    # batch one.
-    # infile = os.path.join(cwd, 'crawler', 'config', 'keywords', 'all.json')
 
-    # load one file of keywords.
-    # ga_keywords_file = os.path.join(cwd, 'crawler', 'config', 'keywords', 'ga.csv')
-    # ga_keywords =list(set(list(pd.read_csv(ga_keywords_file)['keyword'].str.lower())))
-    # lang = "ga"
-    # main(API_NAME, COUNTRY_ISO2, [ga_keywords], 0, "2013", "2022", len(ga_keywords), lang, "und")
-
-    # batch two, collecting tweets with specific languages.
-    # infile = os.path.join(cwd, 'crawler', 'config', 'keywords', 'all_2_dict.json')
-    # second batch:
-
-    ## third batch, mixed languages/
-    # countries:['GB', 'DE', 'SE', 'FR', 'IT', 'GR', 'ES', 'AT', 'HU', 'CH', 'PL', 'NL']
-    #     # 'BE', 'BG', 'CZ', 'DK',
-    #     # 'HR', 'CY', 'EE', 'FI',  'IE', 'LV', 'LT', 'LU',  'MT', 'PT', 'RO', 'SK',  'SI',
-    #     #  'IS', 'LI', 'NO']
     API_NAME = "migrationsKB"
-    COUNTRY_ISO2 = None
-
-    # batch3. don't differentiate languages. twitter can differentiate.
-    infile = os.path.join(cwd, 'crawler', 'config', 'keywords', 'all_2.json')
+    infile = os.path.join(cwd, "data", "keywords_chunks.json")
     with open(infile) as f:
         keywords_all = json.load(f)
         # keywords_dict = json.load(f)
     print(keywords_all)
-    print(f"country {COUNTRY_ISO2}")
 
     LEN = len(keywords_all)
     print(f"length of keywords: {LEN} chunks")
-    main(API_NAME, COUNTRY_ISO2, keywords_all, 0, "2013", "2022", LEN, "", "mix")
+    main(API_NAME, keywords_all, 16, "2022", lang="en", flag=True)
