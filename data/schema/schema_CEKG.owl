@@ -1,0 +1,316 @@
+@prefix : <http://www.semanticweb.org/yiyichen/ontologies/2022/2/untitled-ontology-17#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix nee: <http://www.ics.forth.gr/isl/oae/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sem: <http://semanticweb.cs.vu.nl/2009/11/sem/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix lcc-lr: <https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/> .
+@prefix schema: <http://schema.org/> .
+@prefix sioc_t: <http://rdfs.org/sioc/types#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix cidoc-crm: <https://cidoc-crm.org/html/cidoc_crm_v7.1.1.html#> .
+@prefix eventKG-s: <http://eventKG.l3s.uni-hannover.de/schema/> .
+@base <https://siebeniris.github.io/ConflictEventKG/> .
+
+<https://siebeniris.github.io/ConflictEventKG/> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://eventKG.l3s.uni-hannover.de/schema/endUnitType
+eventKG-s:endUnitType rdf:type owl:ObjectProperty ;
+                      rdfs:domain sem:Core ,
+                                  sem:Role ;
+                      rdfs:range <http://www.w3.org/2006/time#TemporalUnit> .
+
+
+###  http://eventKG.l3s.uni-hannover.de/schema/extractedFrom
+eventKG-s:extractedFrom rdf:type owl:ObjectProperty ;
+                        rdfs:domain sem:Core ;
+                        rdfs:range rdfs:Resource ;
+                        rdfs:comment "the source of the event information." .
+
+
+###  http://eventKG.l3s.uni-hannover.de/schema/startUnitType
+eventKG-s:startUnitType rdf:type owl:ObjectProperty ;
+                        rdfs:domain sem:Core ,
+                                    sem:Role ;
+                        rdfs:range <http://www.w3.org/2006/time#TemporalUnit> .
+
+
+###  http://rdfs.org/sioc/ns#has_creator
+sioc:has_creator rdf:type owl:ObjectProperty ;
+                 rdfs:domain sioc:Post ;
+                 rdfs:range sioc:UserAccount .
+
+
+###  http://schema.org/interactionStatistics
+schema:interactionStatistics rdf:type owl:ObjectProperty ;
+                             rdfs:domain sioc:Post ;
+                             rdfs:range schema:InteractionCounter ;
+                             rdfs:comment "A tweet has interactionStatistics InteractionCounter." .
+
+
+###  http://schema.org/interactionType
+schema:interactionType rdf:type owl:ObjectProperty ;
+                       rdfs:domain schema:InteractionCounter ;
+                       rdfs:range schema:Action .
+
+
+###  http://schema.org/mentions
+schema:mentions rdf:type owl:ObjectProperty ;
+                rdfs:domain sioc:Post ,
+                            sem:Event ;
+                rdfs:range sioc:UserAccount ,
+                           sioc_t:Tag ,
+                           nee:Entity .
+
+
+###  http://semanticweb.cs.vu.nl/2009/11/sem/hasSubEvent
+sem:hasSubEvent rdf:type owl:ObjectProperty ;
+                rdfs:domain sem:Event ;
+                rdfs:range sem:Event .
+
+
+###  http://semanticweb.cs.vu.nl/2009/11/sem/roleType
+sem:roleType rdf:type owl:ObjectProperty ;
+             rdfs:domain sem:Role ;
+             rdfs:range sem:RoleType .
+
+
+###  http://www.ics.forth.gr/isl/oae/core#hasMatchedURI
+nee:hasMatchedURI rdf:type owl:ObjectProperty ;
+                  rdfs:domain nee:Entity ;
+                  rdfs:range rdfs:Resource .
+
+
+###  http://www.semanticweb.org/yiyichen/ontologies/2022/2/untitled-ontology-17#detected
+:detected rdf:type owl:ObjectProperty ;
+          rdfs:domain sioc:Post ;
+          rdfs:range sem:Event .
+
+
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#object
+rdf:object rdf:type owl:ObjectProperty ;
+           rdfs:domain eventKG-s:Relation ;
+           rdfs:range sem:Event .
+
+
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#subject
+rdf:subject rdf:type owl:ObjectProperty ;
+            rdfs:domain eventKG-s:Relation ;
+            rdfs:range sem:Actor .
+
+
+###  http://www.w3.org/2002/07/owl#sameAs
+owl:sameAs rdf:type owl:ObjectProperty ;
+           rdfs:domain sem:Core ;
+           rdfs:range rdfs:Resource .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/created
+dc:created rdf:type owl:DatatypeProperty ;
+           rdfs:domain sioc:Post ;
+           rdfs:range rdfs:Literal ;
+           rdfs:comment "the date when the data is created" .
+
+
+###  http://purl.org/dc/terms/description
+dcterms:description rdf:type owl:DatatypeProperty ;
+                    rdfs:domain sem:Event ,
+                                rdfs:Resource ;
+                    rdfs:range rdfs:Literal .
+
+
+###  http://rdfs.org/sioc/ns#id
+sioc:id rdf:type owl:DatatypeProperty ;
+        rdfs:domain sioc:Post ,
+                    sioc:UserAccount ;
+        rdfs:range rdfs:Literal ;
+        rdfs:comment "The id of a Tweet or the encrypted id of a user account." .
+
+
+###  http://rdfs.org/sioc/ns#name
+sioc:name rdf:type owl:DatatypeProperty ;
+          rdfs:domain sioc:UserAccount ;
+          rdfs:range rdfs:Literal .
+
+
+###  http://schema.org/userInteractionCount
+schema:userInteractionCount rdf:type owl:DatatypeProperty ;
+                            rdfs:domain schema:InteractionCounter ;
+                            rdfs:range rdfs:Literal ;
+                            rdfs:comment "The user interaction count of an interaction action such as Like, Reply and Share." .
+
+
+###  http://semanticweb.cs.vu.nl/2009/11/sem/hasBeginTimeStamp
+sem:hasBeginTimeStamp rdf:type owl:DatatypeProperty ;
+                      rdfs:domain sem:Core ,
+                                  sem:Role ;
+                      rdfs:range rdfs:Literal .
+
+
+###  http://semanticweb.cs.vu.nl/2009/11/sem/hasEndTimeStamp
+sem:hasEndTimeStamp rdf:type owl:DatatypeProperty ;
+                    rdfs:domain sem:Core ,
+                                sem:Role ;
+                    rdfs:range rdfs:Literal .
+
+
+###  http://www.ics.forth.gr/isl/oae/core#confidence
+nee:confidence rdf:type owl:DatatypeProperty ;
+               rdfs:domain sem:Event ;
+               rdfs:range rdfs:Literal .
+
+
+###  http://www.ics.forth.gr/isl/oae/core#detectedAs
+nee:detectedAs rdf:type owl:DatatypeProperty ;
+               rdfs:domain nee:Entity ;
+               rdfs:range rdfs:Literal ;
+               rdfs:comment "The detected entity mention using entity linking." .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#label
+rdfs:label rdf:type owl:DatatypeProperty ;
+           rdfs:domain sioc_t:Tag ,
+                       sem:Actor ,
+                       sem:RoleType ,
+                       rdfs:Resource ;
+           rdfs:range rdfs:Literal ;
+           rdfs:comment "represents a label of either Resource or a hashtag." .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://eventKG.l3s.uni-hannover.de/schema/Relation
+eventKG-s:Relation rdf:type owl:Class ;
+                   rdfs:subClassOf sem:Role .
+
+
+###  http://rdfs.org/sioc/ns#Post
+sioc:Post rdf:type owl:Class ;
+          rdfs:comment "a Tweet" .
+
+
+###  http://rdfs.org/sioc/ns#UserAccount
+sioc:UserAccount rdf:type owl:Class ;
+                 rdfs:comment "A user account contains an encrypted id." .
+
+
+###  http://rdfs.org/sioc/types#Tag
+sioc_t:Tag rdf:type owl:Class ;
+           rdfs:comment "Hashtag of the tweet." .
+
+
+###  http://schema.org/Action
+schema:Action rdf:type owl:Class ;
+              rdfs:comment """Action that includes LikeAction, ShareAction and ReplyAction.
+A Tweet can be liked, shared and replied.""" .
+
+
+###  http://schema.org/InteractionCounter
+schema:InteractionCounter rdf:type owl:Class ;
+                          rdfs:comment "A class that represents the public metrics of a tweet, includes LikeAction (like_count), ShareAction (retweet_count), ReplyAction (reply_count)." .
+
+
+###  http://semanticweb.cs.vu.nl/2009/11/sem/Actor
+sem:Actor rdf:type owl:Class ;
+          rdfs:subClassOf sem:Core .
+
+
+###  http://semanticweb.cs.vu.nl/2009/11/sem/Core
+sem:Core rdf:type owl:Class ;
+         rdfs:comment "The SEM Core class contains all entities that make up the context of an event: Events, Actors, Places, Times. This class is meant to be extended for each application domain." .
+
+
+###  http://semanticweb.cs.vu.nl/2009/11/sem/Event
+sem:Event rdf:type owl:Class ;
+          rdfs:subClassOf sem:Core .
+
+
+###  http://semanticweb.cs.vu.nl/2009/11/sem/Role
+sem:Role rdf:type owl:Class .
+
+
+###  http://semanticweb.cs.vu.nl/2009/11/sem/RoleType
+sem:RoleType rdf:type owl:Class .
+
+
+###  http://www.ics.forth.gr/isl/oae/core#Entity
+nee:Entity rdf:type owl:Class ;
+           rdfs:comment "Represents an identified entity from wikipedia." .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#Resource
+rdfs:Resource rdf:type owl:Class ;
+              rdfs:comment "Identify the resource of an entity, which is a URI of Wikidata." .
+
+
+###  http://www.w3.org/2006/time#TemporalUnit
+<http://www.w3.org/2006/time#TemporalUnit> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://eventKG.l3s.uni-hannover.de/schema/unitCentry
+eventKG-s:unitCentry rdf:type owl:NamedIndividual .
+
+
+###  http://eventKG.l3s.uni-hannover.de/schema/unitDecade
+eventKG-s:unitDecade rdf:type owl:NamedIndividual .
+
+
+###  http://schema.org/LikeAction
+schema:LikeAction rdf:type owl:NamedIndividual ,
+                           schema:Action .
+
+
+###  http://schema.org/ReplyAction
+schema:ReplyAction rdf:type owl:NamedIndividual ,
+                            schema:Action .
+
+
+###  http://schema.org/ShareAction
+schema:ShareAction rdf:type owl:NamedIndividual ,
+                            schema:Action .
+
+
+###  http://www.semanticweb.org/yiyichen/ontologies/2022/2/untitled-ontology-17#QuoteAction
+:QuoteAction rdf:type owl:NamedIndividual ,
+                      schema:Action .
+
+
+###  http://www.w3.org/2006/time#unitDay
+<http://www.w3.org/2006/time#unitDay> rdf:type owl:NamedIndividual ,
+                                               <http://www.w3.org/2006/time#TemporalUnit> .
+
+
+###  http://www.w3.org/2006/time#unitMonth
+<http://www.w3.org/2006/time#unitMonth> rdf:type owl:NamedIndividual ,
+                                                 <http://www.w3.org/2006/time#TemporalUnit> .
+
+
+###  http://www.w3.org/2006/time#unitYear
+<http://www.w3.org/2006/time#unitYear> rdf:type owl:NamedIndividual ,
+                                                <http://www.w3.org/2006/time#TemporalUnit> .
+
+
+###  https://cidoc-crm.org/html/cidoc_crm_v7.1.1.html#en
+cidoc-crm:en rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
