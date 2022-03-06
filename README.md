@@ -1,4 +1,4 @@
-# eventKB
+# Conflict Event Knowledge Graph
 
 
 ## wikipedia current events

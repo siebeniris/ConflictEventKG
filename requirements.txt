@@ -1,0 +1,11 @@
+jupyterlab
+ipykernel
+numpy
+scikit-learn
+pandas
+beautifulsoup4~=4.10.0
+requests~=2.27.1
+pyyaml
+pandarallel
+matplotlib
+seaborn
