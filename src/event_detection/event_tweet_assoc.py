@@ -11,12 +11,12 @@ import seaborn as sns
 
 
 def get_event_df():
-    df_event = pd.read_csv("data/events/events_actors_wiki2data.csv")
+    df_event = pd.read_csv("data/events/event_indexed.csv")
     wiki2data_ids = df_event["wikidata_ids"].tolist()
     wiki2data_ids_ = [literal_eval(x) for x in wiki2data_ids]
     wiki2data_ids_ = [[int(x) for x in y] for y in wiki2data_ids_]
     df_event["wikidata_ids"] = wiki2data_ids_
-    df_event["event_id"] = df_event.index
+    # df_event["event_id"] = df_event.index
     print(df_event["wikidata_ids"].tolist()[:10])
     return df_event
 
@@ -35,9 +35,10 @@ def get_tweet_event_score(tweet2event_dict):
     tweet2event_score = defaultdict(dict)
 
     for tweet_id, event_score in tweet2event_dict.items():
-        event_score = sorted(event_score.items(), key=lambda item: item[1], reverse=True)
-        event_id, score = event_score[0]
-        tweet2event_score[tweet_id] = {"event_id": event_id, "score": score}
+        event_score_sorted = sorted(event_score.items(), key=lambda item: item[1], reverse=True)
+        event_id, score = event_score_sorted[0]
+        event_score_dict = {k: v for k, v in event_score.items() if v > 0.3}
+        tweet2event_score[tweet_id] = {"event_id": event_id, "score": score, "score_dict": event_score_dict}
 
     # convert dictionary to dataframe
     tweet2event_df = pd.DataFrame.from_dict(tweet2event_score, orient="index")
@@ -78,7 +79,7 @@ def matching_tweets_event(df_event, df_tweets):
     print(f"tweet df original {len(df_tweets)}, event detected {len(tweet2event_df)}")
 
     df_merged = pd.merge(df_tweets, tweet2event_df, on="id")
-    print(f"score >0.5: {len(df_merged[df_merged['score']>0.5])}")
+    print(f"score >0.3: {len(df_merged[df_merged['score'] > 0.3])}")
 
     df_merged.to_csv(f"data/events/event_detected_tweets/tweets_{tweet_date}.csv", index=False)
 
@@ -88,11 +89,13 @@ def main():
     for file in glob("data/wikidata/tweets_wikidata_*.csv"):
         df_tweet = get_tweet_df(file)
         matching_tweets_event(df_event, df_tweet)
+
+
 #
 # def sample_run():
 #     df_event =
 
 if __name__ == '__main__':
-    df_event = get_event_df()
-    df_event.to_csv("data/events/event_indexed.csv", index=False)
-
+    # df_event = get_event_df()
+    # df_event.to_csv("data/events/event_indexed.csv", index=False)
+    main()

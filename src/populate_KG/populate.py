@@ -80,9 +80,9 @@ def define_event_resources():
     wikidata = "https://www.wikidata.org/wiki/Q"
     # id,category,date,event_text,main_event,first_sentence,first_actor,
     # wikidata_labels,wikidata_ids,event_id,extractedFrom
-    #actors
+    # actors
     for idx, actor in enumerate(actors):
-        actor_instance = URIRef(CEKG+f"actor_{idx}")
+        actor_instance = URIRef(CEKG + f"actor_{idx}")
         g.add((actor_instance, RDF.type, sem.Actor))
         g.add((actor_instance, RDFS.label, Literal(actor)))
     # roles
@@ -91,11 +91,10 @@ def define_event_resources():
         g.add((role_instance, RDF.type, sem.RoleType))
         g.add((role_instance, RDFS.label, Literal(role)))
 
-
     main_event_dict = {main_event: idx for idx, main_event in enumerate(main_events)}
     print(main_event_dict)
     for idx, main_event in enumerate(main_events):
-        main_event_instance = URIRef(CEKG+f"main_event_{idx}")
+        main_event_instance = URIRef(CEKG + f"main_event_{idx}")
         # description only
         g.add((main_event_instance, RDF.type, sem.Event))
         g.add((main_event_instance, DCTERMS.description, Literal(main_event)))
@@ -109,7 +108,7 @@ def define_event_resources():
         event_id = event_dict["event_id"]
         extractedFrom = event_dict["extractedFrom"]
         # event
-        event_instance = URIRef(CEKG+f"event_{event_id}")
+        event_instance = URIRef(CEKG + f"event_{event_id}")
         g.add((event_instance, DCTERMS.description, Literal(event_text)))
         g.add((event_instance, eventKG_s.extractedFrom, URIRef(extractedFrom)))
         g.add((event_instance, sem.hasBeginTimeStamp, Literal(date)))
@@ -120,8 +119,8 @@ def define_event_resources():
         g.add((main_event_instance, sem.hasSubEvent, event_instance))
 
         for wikidata_id in wikidata_ids:
-            ent_instance = URIRef(wikidata+f"{wikidata_id}")
-            ent_mention_instance = URIRef(CEKG+f"ent_mention_{event_id}_{wikidata_id}")
+            ent_instance = URIRef(wikidata + f"{wikidata_id}")
+            ent_mention_instance = URIRef(CEKG + f"ent_mention_{event_id}_{wikidata_id}")
             g.add((ent_mention_instance, RDF.type, nee.Entity))
             g.add((event_instance, schema.mentions, ent_mention_instance))
             g.add((ent_mention_instance, nee.hasMatchedURI, ent_instance))
@@ -133,7 +132,7 @@ def define_event_resources():
         # relation
         role_id = roles_dict[category]
         role_type_instance = URIRef(CEKG + f"roke_type_{role_id}")
-        relation_instance = URIRef(CEKG+f"relation_{idx}")
+        relation_instance = URIRef(CEKG + f"relation_{idx}")
         g.add((relation_instance, RDF.type, eventKG_s.Relation))
         g.add((relation_instance, RDF.object, event_instance))
         g.add((relation_instance, RDF.subject, actor_instance))
@@ -152,7 +151,7 @@ def define_tweet_resources():
     author_ids = list(set(df_tweets["author_id"].dropna().tolist()))
     author_dict = {author_id: idx for idx, author_id in enumerate(author_ids)}
     for idx, user_id in enumerate(author_ids):
-        user_instance = URIRef(CEKG+f"tweet_user_{idx}")
+        user_instance = URIRef(CEKG + f"tweet_user_{idx}")
         g.add((user_instance, RDF.type, sioc.UserAccount))
         g.add((user_instance, sioc.id, Literal(idx)))
 
@@ -162,7 +161,7 @@ def define_tweet_resources():
     for tweet_id, tweet_dict in tweets_dict.items():
         tweet_instance = URIRef(CEKG + f"tweet_{tweet_id}")
         created_at = tweet_dict["created_at"]
-        user_mentions = tweets_dict["user_mentions"]  # list
+        user_mentions = tweet_dict["user_mentions"]  # list
         hashtags = tweet_dict["hashtags"]  # list
         wikidata_ids = literal_eval(tweet_dict["wikidata_ids"])
         score_dict = literal_eval(tweet_dict["score_dict"])
@@ -173,20 +172,20 @@ def define_tweet_resources():
         retweet_count = tweet_dict["retweet_count"]
 
         user_id = author_dict[author_id]
-        user_instance = URIRef(CEKG+f"tweet_user_{user_id}")
+        user_instance = URIRef(CEKG + f"tweet_user_{user_id}")
         g.add((tweet_instance, sioc.has_creator, user_instance))
         g.add((tweet_instance, sioc.id, Literal(tweet_id)))
-        g.add((tweet_instance, DC.created, Literal(created_at)))
+        g.add((tweet_instance, DCTERMS.created, Literal(created_at)))
 
-        if hashtags is not None:
+        if hashtags is not None and str(hashtags) != 'nan':
             hashtags = literal_eval(hashtags)
             for hash_id, hashtag in enumerate(hashtags):
-                hashtag_instance = URIRef(CEKG+f"hashtag_{tweet_id}_{hash_id}")
+                hashtag_instance = URIRef(CEKG + f"hashtag_{tweet_id}_{hash_id}")
                 g.add((hashtag_instance, RDF.type, sioc_t.Tag))
                 g.add((tweet_instance, schema.mentions, hashtag_instance))
-                g.add((hashtag_instance, RDF.label, Literal(hashtag)))
+                g.add((hashtag_instance, RDFS.label, Literal(hashtag)))
 
-        if user_mentions is not None:
+        if user_mentions is not None and str(user_mentions) != 'nan':
             user_mentions = literal_eval(user_mentions)
             for idx, user_mention in enumerate(user_mentions):
                 user_mention_instance = URIRef(CEKG + f"user_mention_{tweet_id}_{idx}")
@@ -196,7 +195,7 @@ def define_tweet_resources():
 
         if like_count is not None:
             like_count = int(like_count)
-            like_instance = URIRef(CEKG + 'like_' + tweet_id)
+            like_instance = URIRef(CEKG + f'like_{tweet_id}')
             g.add((like_instance, RDF.type, schema.IneractionCounter))
             g.add((like_instance, schema.interactionType, schema.LikeAction))
             g.add((like_instance, schema.userInteractionCount, Literal(like_count)))
@@ -204,7 +203,7 @@ def define_tweet_resources():
 
         if retweet_count is not None:
             share_count = int(retweet_count)
-            share_instance = URIRef(CEKG + 'share_' + tweet_id)
+            share_instance = URIRef(CEKG + f'share_{tweet_id}')
             g.add((share_instance, RDF.type, schema.IneractionCounter))
             g.add((share_instance, schema.interactionType, schema.ShareAction))
             g.add((share_instance, schema.userInteractionCount, Literal(share_count)))
@@ -212,7 +211,7 @@ def define_tweet_resources():
 
         if reply_count is not None:
             reply_count = int(reply_count)
-            reply_instance = URIRef(CEKG + 'reply_' + tweet_id)
+            reply_instance = URIRef(CEKG + f'reply_{tweet_id}')
             g.add((reply_instance, RDF.type, schema.IneractionCounter))
             g.add((reply_instance, schema.interactionType, schema.ReplyAction))
             g.add((reply_instance, schema.userInteractionCount, Literal(reply_count)))
@@ -220,7 +219,7 @@ def define_tweet_resources():
 
         if quote_count is not None:
             quote_count = int(quote_count)
-            quote_instance = URIRef(CEKG + 'quote_' + tweet_id)
+            quote_instance = URIRef(CEKG + f'quote_{tweet_id}')
             g.add((quote_instance, RDF.type, schema.IneractionCounter))
             g.add((quote_instance, schema.interactionType, cekg.ReplyAction))
             g.add((quote_instance, schema.userInteractionCount, Literal(quote_instance)))
@@ -241,11 +240,11 @@ def define_tweet_resources():
                 g.add((tweet_instance, nee.confidence, Literal(score)))
 
 
-
-
 if __name__ == '__main__':
+    print("entity....")
     define_entity_resources()
+    print("event....")
     define_event_resources()
+    print("tweet ....")
     define_tweet_resources()
     g.serialize(destination=f"data/final/CEKG.nt", format="nt")
-
