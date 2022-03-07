@@ -22,7 +22,7 @@ nee = Namespace('http://www.ics.forth.gr/isl/oae/core#')
 schema = Namespace('http://schema.org/')
 cidoc_crm = Namespace("https://cidoc-crm.org/html/cidoc_crm_v7.1.1.html#")
 eventKG_s = Namespace("http://eventKG.l3s.uni-hannover.de/schema/")
-CEKG = Namespace("https://siebeniris.github.io/ConflictEventKG/")
+CEKG = "https://siebeniris.github.io/ConflictEventKG/"
 cekg = Namespace(CEKG)
 
 # binding
@@ -124,7 +124,7 @@ def define_event_resources():
             ent_mention_instance = URIRef(CEKG+f"ent_mention_{event_id}_{wikidata_id}")
             g.add((ent_mention_instance, RDF.type, nee.Entity))
             g.add((event_instance, schema.mentions, ent_mention_instance))
-            g.add((ent_mention_instance, schema.mentions, ent_instance))
+            g.add((ent_mention_instance, nee.hasMatchedURI, ent_instance))
 
         # actor
         actor_id = actors_dict[actor]
@@ -143,15 +143,109 @@ def define_event_resources():
         g.add((relation_instance, eventKG_s.startUnitType, TIME.unitDay))
 
 
+def define_tweet_resources():
+    # id, date, preprocessed_text, wikidata_ids, event_id, score, score_dict,
+    # author_id, created_at, hashtags, user_mentions, reply_count, like_count,
+    # quote_count, retweet_count
+    filepath = "data/final/tweets.csv"
+    df_tweets = pd.read_csv(filepath, index_col=0)
+    author_ids = list(set(df_tweets["author_id"].dropna().tolist()))
+    author_dict = {author_id: idx for idx, author_id in enumerate(author_ids)}
+    for idx, user_id in enumerate(author_ids):
+        user_instance = URIRef(CEKG+f"tweet_user_{idx}")
+        g.add((user_instance, RDF.type, sioc.UserAccount))
+        g.add((user_instance, sioc.id, Literal(idx)))
 
+    wikidata_prefix = "https://www.wikidata.org/wiki/Q"
 
+    tweets_dict = df_tweets.to_dict(orient="index")
+    for tweet_id, tweet_dict in tweets_dict.items():
+        tweet_instance = URIRef(CEKG + f"tweet_{tweet_id}")
+        created_at = tweet_dict["created_at"]
+        user_mentions = tweets_dict["user_mentions"]  # list
+        hashtags = tweet_dict["hashtags"]  # list
+        wikidata_ids = literal_eval(tweet_dict["wikidata_ids"])
+        score_dict = literal_eval(tweet_dict["score_dict"])
+        author_id = tweet_dict["author_id"]
+        reply_count = tweet_dict["reply_count"]
+        like_count = tweet_dict["like_count"]
+        quote_count = tweet_dict["quote_count"]
+        retweet_count = tweet_dict["retweet_count"]
+
+        user_id = author_dict[author_id]
+        user_instance = URIRef(CEKG+f"tweet_user_{user_id}")
+        g.add((tweet_instance, sioc.has_creator, user_instance))
+        g.add((tweet_instance, sioc.id, Literal(tweet_id)))
+        g.add((tweet_instance, DC.created, Literal(created_at)))
+
+        if hashtags is not None:
+            hashtags = literal_eval(hashtags)
+            for hash_id, hashtag in enumerate(hashtags):
+                hashtag_instance = URIRef(CEKG+f"hashtag_{tweet_id}_{hash_id}")
+                g.add((hashtag_instance, RDF.type, sioc_t.Tag))
+                g.add((tweet_instance, schema.mentions, hashtag_instance))
+                g.add((hashtag_instance, RDF.label, Literal(hashtag)))
+
+        if user_mentions is not None:
+            user_mentions = literal_eval(user_mentions)
+            for idx, user_mention in enumerate(user_mentions):
+                user_mention_instance = URIRef(CEKG + f"user_mention_{tweet_id}_{idx}")
+                g.add((user_mention_instance, RDF.type, sioc.UserAccount))
+                g.add((tweet_instance, schema.mentions, user_mention_instance))
+                g.add((user_mention_instance, sioc.name, Literal(user_mention)))
+
+        if like_count is not None:
+            like_count = int(like_count)
+            like_instance = URIRef(CEKG + 'like_' + tweet_id)
+            g.add((like_instance, RDF.type, schema.IneractionCounter))
+            g.add((like_instance, schema.interactionType, schema.LikeAction))
+            g.add((like_instance, schema.userInteractionCount, Literal(like_count)))
+            g.add((tweet_instance, schema.interactionStatistics, like_instance))
+
+        if retweet_count is not None:
+            share_count = int(retweet_count)
+            share_instance = URIRef(CEKG + 'share_' + tweet_id)
+            g.add((share_instance, RDF.type, schema.IneractionCounter))
+            g.add((share_instance, schema.interactionType, schema.ShareAction))
+            g.add((share_instance, schema.userInteractionCount, Literal(share_count)))
+            g.add((share_instance, schema.interactionStatistics, share_instance))
+
+        if reply_count is not None:
+            reply_count = int(reply_count)
+            reply_instance = URIRef(CEKG + 'reply_' + tweet_id)
+            g.add((reply_instance, RDF.type, schema.IneractionCounter))
+            g.add((reply_instance, schema.interactionType, schema.ReplyAction))
+            g.add((reply_instance, schema.userInteractionCount, Literal(reply_count)))
+            g.add((reply_instance, schema.interactionStatistics, reply_instance))
+
+        if quote_count is not None:
+            quote_count = int(quote_count)
+            quote_instance = URIRef(CEKG + 'quote_' + tweet_id)
+            g.add((quote_instance, RDF.type, schema.IneractionCounter))
+            g.add((quote_instance, schema.interactionType, cekg.ReplyAction))
+            g.add((quote_instance, schema.userInteractionCount, Literal(quote_instance)))
+            g.add((quote_instance, schema.interactionStatistics, quote_instance))
+
+        for wikidata_id in wikidata_ids:
+            ent_instance = URIRef(wikidata_prefix + f"{wikidata_id}")
+            ent_mention_instance = URIRef(CEKG + f"ent_mention_{tweet_id}_{wikidata_id}")
+            g.add((ent_mention_instance, RDF.type, nee.Entity))
+            g.add((tweet_instance, schema.mentions, ent_mention_instance))
+            g.add((ent_mention_instance, nee.hasMatchedURI, ent_instance))
+
+        # linked to event
+        for event_id, score in score_dict.items():
+            if score >= 0.5:
+                event_instance = URIRef(CEKG + f"event_{event_id}")
+                g.add((tweet_instance, cekg.detected, event_instance))
+                g.add((tweet_instance, nee.confidence, Literal(score)))
 
 
 
 
 if __name__ == '__main__':
-    # define_entity_resources()
+    define_entity_resources()
     define_event_resources()
-
+    define_tweet_resources()
     g.serialize(destination=f"data/final/CEKG.nt", format="nt")
 
