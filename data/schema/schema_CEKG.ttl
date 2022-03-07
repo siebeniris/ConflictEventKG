@@ -1,6 +1,5 @@
 @prefix : <https://siebeniris.github.io/ConflictEventKG/> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix dbo: <http://dbpedia.org/ontology/> .
 @prefix nee: <http://www.ics.forth.gr/isl/oae/core#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -11,7 +10,6 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sioc: <http://rdfs.org/sioc/ns#> .
 @prefix time: <http://www.w3.org/2006/time#> .
-@prefix lcc-lr: <https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/> .
 @prefix schema: <http://schema.org/> .
 @prefix sioc_t: <http://rdfs.org/sioc/types#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -121,11 +119,10 @@ cekg:detected rdf:type owl:ObjectProperty ;
 #    Data properties
 #################################################################
 
-###  http://purl.org/dc/elements/1.1/created
-dc:created rdf:type owl:DatatypeProperty ;
-           rdfs:domain sioc:Post ;
-           rdfs:range rdfs:Literal ;
-           rdfs:comment "the date when the data is created" .
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:DatatypeProperty ;
+                rdfs:domain sioc:Post ;
+                rdfs:range rdfs:Literal .
 
 
 ###  http://purl.org/dc/terms/description
@@ -172,7 +169,7 @@ sem:hasEndTimeStamp rdf:type owl:DatatypeProperty ;
 
 ###  http://www.ics.forth.gr/isl/oae/core#confidence
 nee:confidence rdf:type owl:DatatypeProperty ;
-               rdfs:domain sem:Event ;
+               rdfs:domain sioc:Post ;
                rdfs:range rdfs:Literal .
 
 

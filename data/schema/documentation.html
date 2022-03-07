@@ -208,247 +208,1191 @@
     <span style="font-size:smaller;">2.8.3</span>
   </div>
   <h1>Conflict Event Knowledge Graph</h1>
-<h3><em>A taxonomy</em></h3>
-  <section id="conceptscheme">
-      <h2 style="display:none;">Concept Scheme</h2>
-      <dl>
-          <dt>URI</dt>
-          <dd><code>https://siebeniris.github.io/ConflictEventKG/</code></dd>
-          <dt>Ontology RDF</dt>
-          <dd><a href="data_file.ttl">RDF (turtle)</a></dd>
-      </dl>
-  </section>
-  <section id="toc">
-      <h2>Table of Contents</h2>
-      <ol>
-          <li><a href="#concepts">Concepts</a></li>
-          <li><a href="#namespaces">Namespaces</a></li>
-          <li><a href="#legend">Legend</a></li>
-      </ol>
-  </section>
-  <section id="overview">
-      <h2>Overview</h2>
-      <div class="figure">
-          <div style="width:500px; height:500px; background-color: black;">&nbsp;</div>
-          <div class="caption"><strong>Figure 1:</strong> Taxonomy overview</div>
-      </div>
-  </section>
-  <section id="concepts">
-    <h2>Concepts <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
-    <ul class="hierarchy">
-<li><a href="http://rdfs.org/sioc/ns#Post">sioc:Post</a></li><li><a href="http://rdfs.org/sioc/ns#UserAccount">sioc:UserAccount</a></li><li><a href="http://rdfs.org/sioc/types#Tag">sioc_t:Tag</a></li><li><a href="http://schema.org/Action">schema:Action</a></li><li><a href="http://schema.org/InteractionCounter">schema:InteractionCounter</a></li><li><a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a>
-<ul><li><a href="http://semanticweb.cs.vu.nl/2009/11/sem/Actor">sem:Actor</a></li></ul>
-<ul><li><a href="http://semanticweb.cs.vu.nl/2009/11/sem/Event">sem:Event</a></li></ul></li><li><a href="http://semanticweb.cs.vu.nl/2009/11/sem/Role">sem:Role</a>
-<ul><li><a href="http://eventKG.l3s.uni-hannover.de/schema/Relation">eventKG-s:Relation</a></li></ul></li><li><a href="http://semanticweb.cs.vu.nl/2009/11/sem/RoleType">sem:RoleType</a></li><li><a href="http://www.ics.forth.gr/isl/oae/core#Entity">nee:Entity</a></li><li><a href="http://www.w3.org/2000/01/rdf-schema#Resource">rdfs:Resource</a></li><li><a href="http://www.w3.org/2006/time#TemporalUnit">http://www.w3.org/2006/time#TemporalUnit</a></li>
-</ul>
-    <div class="entity concept" id="Relation">
-        <h3>Relation<sup title="Concept" class="sup-cp">cp</sup></h3>
+<section id="metadata">
+    <h2 style="display:none;">Metadata</h2>
+    <dl>
+        <dt>URI</dt>
+        <dd><code>https://siebeniris.github.io/ConflictEventKG/</code></dd>
+        <dt>Ontology RDF</dt>
+        <dd><a href="data_file.ttl">RDF (turtle)</a></dd>
+    </dl>
+</section>
+<section id="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#objectproperties">Object Properties</a></li>
+        <li><a href="#datatypeproperties">Datatype Properties</a></li>
+        <li><a href="#namedindividuals">Named Individuals</a></li>
+        <li><a href="#namespaces">Namespaces</a></li>
+        <li><a href="#legend">Legend</a></li>
+    </ol>
+</section>
+<section id="overview">
+    <h2>Overview</h2>
+    <div class="figure">
+        <div style="width:1000px; height:540px; background-color: white; border:solid 2px grey; padding:10px;margin-bottom:5px; text-align:center;"><img src="ConflictEventKG.jpg"/></div>
+        <div class="caption"><strong>Figure 1:</strong> Ontology overview</div>
+    </div>
+</section>
+  <section id="classes">
+    <h2>Classes <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <ul class="hlist">
+        <li><a href="#Action">Action</a></li>
+        <li><a href="#Actor">Actor</a></li>
+        <li><a href="#Core">Core</a></li>
+        <li><a href="#Entity">Entity</a></li>
+        <li><a href="#Event">Event</a></li>
+        <li><a href="#InteractionCounter">InteractionCounter</a></li>
+        <li><a href="#Post">Post</a></li>
+        <li><a href="#Relation">Relation</a></li>
+        <li><a href="#Resource">Resource</a></li>
+        <li><a href="#Role">Role</a></li>
+        <li><a href="#RoleType">RoleType</a></li>
+        <li><a href="#Tag">Tag</a></li>
+        <li><a href="#TemporalUnit">TemporalUnit</a></li>
+        <li><a href="#UserAccount">UserAccount</a></li>
+    </ul>
+    <div class="entity class" id="Relation">
+        <h3>Relation<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://eventKG.l3s.uni-hannover.de/schema/Relation</code></td>
             </tr>
             <tr>
-                <th>Broader Concepts</th>
+                <th>Super-classes</th>
                 <td>
-                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Role">sem:Role</a><sup class="sup-cp" title="concept">cp</sup><br/>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Role">sem:Role</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">rdf:object</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">rdf:subject</a><sup class="sup-op" title="object property">op</sup><br/>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="entity concept" id="Post">
-        <h3>Post<sup title="Concept" class="sup-cp">cp</sup></h3>
+    <div class="entity class" id="Post">
+        <h3>Post<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://rdfs.org/sioc/ns#Post</code></td>
             </tr>
             <tr>
-                <th>Definition</th>
+                <th>Description</th>
                 <td>
-                    a Tweet<br/>
+                    <p>a Tweet</p>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="http://rdfs.org/sioc/ns#has_creator">sioc:has_creator</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://purl.org/dc/terms/created">dcterms:created</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="http://schema.org/mentions">schema:mentions</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="https://siebeniris.github.io/ConflictEventKG/detected">cekg:detected</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://rdfs.org/sioc/ns#id">sioc:id</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="http://schema.org/interactionStatistics">schema:interactionStatistics</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://www.ics.forth.gr/isl/oae/core#confidence">nee:confidence</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="entity concept" id="UserAccount">
-        <h3>UserAccount<sup title="Concept" class="sup-cp">cp</sup></h3>
+    <div class="entity class" id="UserAccount">
+        <h3>UserAccount<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://rdfs.org/sioc/ns#UserAccount</code></td>
             </tr>
             <tr>
-                <th>Definition</th>
+                <th>Description</th>
                 <td>
-                    A user account contains an encrypted id.<br/>
+                    <p>A user account contains an encrypted id.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="http://rdfs.org/sioc/ns#id">sioc:id</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="http://rdfs.org/sioc/ns#name">sioc:name</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="http://rdfs.org/sioc/ns#has_creator">sioc:has_creator</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://schema.org/mentions">schema:mentions</a><sup class="sup-op" title="object property">op</sup><br/>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="entity concept" id="Tag">
-        <h3>Tag<sup title="Concept" class="sup-cp">cp</sup></h3>
+    <div class="entity class" id="Tag">
+        <h3>Tag<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://rdfs.org/sioc/types#Tag</code></td>
             </tr>
             <tr>
-                <th>Definition</th>
+                <th>Description</th>
                 <td>
-                    Hashtag of the tweet.<br/>
+                    <p>Hashtag of the tweet.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#label">rdfs:label</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="http://schema.org/mentions">schema:mentions</a><sup class="sup-op" title="object property">op</sup><br/>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="entity concept" id="Action">
-        <h3>Action<sup title="Concept" class="sup-cp">cp</sup></h3>
+    <div class="entity class" id="Action">
+        <h3>Action<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://schema.org/Action</code></td>
             </tr>
             <tr>
-                <th>Definition</th>
+                <th>Description</th>
                 <td>
-                    Action that includes LikeAction, ShareAction and ReplyAction.
-A Tweet can be liked, shared and replied.<br/>
+                    <p>Action that includes LikeAction, ShareAction and ReplyAction.
+A Tweet can be liked, shared and replied.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="http://schema.org/interactionType">schema:interactionType</a><sup class="sup-op" title="object property">op</sup><br/>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="entity concept" id="InteractionCounter">
-        <h3>InteractionCounter<sup title="Concept" class="sup-cp">cp</sup></h3>
+    <div class="entity class" id="InteractionCounter">
+        <h3>InteractionCounter<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://schema.org/InteractionCounter</code></td>
             </tr>
             <tr>
-                <th>Definition</th>
+                <th>Description</th>
                 <td>
-                    A class that represents the public metrics of a tweet, includes LikeAction (like_count), ShareAction (retweet_count), ReplyAction (reply_count).<br/>
+                    <p>A class that represents the public metrics of a tweet, includes LikeAction (like_count), ShareAction (retweet_count), ReplyAction (reply_count).</p>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="http://schema.org/interactionType">schema:interactionType</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://schema.org/userInteractionCount">schema:userInteractionCount</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="http://schema.org/interactionStatistics">schema:interactionStatistics</a><sup class="sup-op" title="object property">op</sup><br/>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="entity concept" id="Actor">
-        <h3>Actor<sup title="Concept" class="sup-cp">cp</sup></h3>
+    <div class="entity class" id="Actor">
+        <h3>Actor<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/Actor</code></td>
             </tr>
             <tr>
-                <th>Broader Concepts</th>
+                <th>Super-classes</th>
                 <td>
-                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a><sup class="sup-cp" title="concept">cp</sup><br/>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#label">rdfs:label</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">rdf:subject</a><sup class="sup-op" title="object property">op</sup><br/>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="entity concept" id="Core">
-        <h3>Core<sup title="Concept" class="sup-cp">cp</sup></h3>
+    <div class="entity class" id="Core">
+        <h3>Core<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/Core</code></td>
             </tr>
             <tr>
-                <th>Definition</th>
+                <th>Description</th>
                 <td>
-                    The SEM Core class contains all entities that make up the context of an event: Events, Actors, Places, Times. This class is meant to be extended for each application domain.<br/>
+                    <p>The SEM Core class contains all entities that make up the context of an event: Events, Actors, Places, Times. This class is meant to be extended for each application domain.</p>
                 </td>
             </tr>
             <tr>
-                <th>Narrower Concepts</th>
+                <th>Sub-classes</th>
                 <td>
-                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Actor">sem:Actor</a><sup class="sup-cp" title="concept">cp</sup><br/>
-                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Event">sem:Event</a><sup class="sup-cp" title="concept">cp</sup><br/>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Actor">sem:Actor</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Event">sem:Event</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/hasBeginTimeStamp">sem:hasBeginTimeStamp</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="http://eventKG.l3s.uni-hannover.de/schema/endUnitType">eventKG-s:endUnitType</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/hasEndTimeStamp">sem:hasEndTimeStamp</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="http://eventKG.l3s.uni-hannover.de/schema/startUnitType">eventKG-s:startUnitType</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://eventKG.l3s.uni-hannover.de/schema/extractedFrom">eventKG-s:extractedFrom</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://www.w3.org/2002/07/owl#sameAs">owl:sameAs</a><sup class="sup-op" title="object property">op</sup><br/>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="entity concept" id="Event">
-        <h3>Event<sup title="Concept" class="sup-cp">cp</sup></h3>
+    <div class="entity class" id="Event">
+        <h3>Event<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/Event</code></td>
             </tr>
             <tr>
-                <th>Broader Concepts</th>
+                <th>Super-classes</th>
                 <td>
-                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a><sup class="sup-cp" title="concept">cp</sup><br/>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="http://schema.org/mentions">schema:mentions</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/hasSubEvent">sem:hasSubEvent</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://purl.org/dc/terms/description">dcterms:description</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">rdf:object</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="https://siebeniris.github.io/ConflictEventKG/detected">cekg:detected</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/hasSubEvent">sem:hasSubEvent</a><sup class="sup-op" title="object property">op</sup><br/>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="entity concept" id="Role">
-        <h3>Role<sup title="Concept" class="sup-cp">cp</sup></h3>
+    <div class="entity class" id="Role">
+        <h3>Role<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/Role</code></td>
             </tr>
             <tr>
-                <th>Narrower Concepts</th>
+                <th>Sub-classes</th>
                 <td>
-                    <a href="http://eventKG.l3s.uni-hannover.de/schema/Relation">eventKG-s:Relation</a><sup class="sup-cp" title="concept">cp</sup><br/>
+                    <a href="http://eventKG.l3s.uni-hannover.de/schema/Relation">eventKG-s:Relation</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="http://eventKG.l3s.uni-hannover.de/schema/startUnitType">eventKG-s:startUnitType</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://eventKG.l3s.uni-hannover.de/schema/endUnitType">eventKG-s:endUnitType</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/hasBeginTimeStamp">sem:hasBeginTimeStamp</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/roleType">sem:roleType</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/hasEndTimeStamp">sem:hasEndTimeStamp</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="entity concept" id="RoleType">
-        <h3>RoleType<sup title="Concept" class="sup-cp">cp</sup></h3>
+    <div class="entity class" id="RoleType">
+        <h3>RoleType<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/RoleType</code></td>
             </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#label">rdfs:label</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/roleType">sem:roleType</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
         </table>
     </div>
-    <div class="entity concept" id="Entity">
-        <h3>Entity<sup title="Concept" class="sup-cp">cp</sup></h3>
+    <div class="entity class" id="Entity">
+        <h3>Entity<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://www.ics.forth.gr/isl/oae/core#Entity</code></td>
             </tr>
             <tr>
-                <th>Definition</th>
+                <th>Description</th>
                 <td>
-                    Represents an identified entity from wikipedia.<br/>
+                    <p>Represents an identified entity from wikipedia.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="http://www.ics.forth.gr/isl/oae/core#detectedAs">nee:detectedAs</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="http://www.ics.forth.gr/isl/oae/core#hasMatchedURI">nee:hasMatchedURI</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="http://schema.org/mentions">schema:mentions</a><sup class="sup-op" title="object property">op</sup><br/>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="entity concept" id="Resource">
-        <h3>Resource<sup title="Concept" class="sup-cp">cp</sup></h3>
+    <div class="entity class" id="Resource">
+        <h3>Resource<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://www.w3.org/2000/01/rdf-schema#Resource</code></td>
             </tr>
             <tr>
-                <th>Definition</th>
+                <th>Description</th>
                 <td>
-                    Identify the resource of an entity, which is a URI of Wikidata.<br/>
+                    <p>Identify the resource of an entity, which is a URI of Wikidata.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#label">rdfs:label</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="http://purl.org/dc/terms/description">dcterms:description</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="http://www.w3.org/2002/07/owl#sameAs">owl:sameAs</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://eventKG.l3s.uni-hannover.de/schema/extractedFrom">eventKG-s:extractedFrom</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://www.ics.forth.gr/isl/oae/core#hasMatchedURI">nee:hasMatchedURI</a><sup class="sup-op" title="object property">op</sup><br/>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="entity concept" id="TemporalUnit">
-        <h3>TemporalUnit<sup title="Concept" class="sup-cp">cp</sup></h3>
+    <div class="entity class" id="TemporalUnit">
+        <h3>TemporalUnit<sup title="class" class="sup-c">c</sup></h3>
         <table>
             <tr>
                 <th>URI</th>
                 <td><code>http://www.w3.org/2006/time#TemporalUnit</code></td>
             </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="http://eventKG.l3s.uni-hannover.de/schema/startUnitType">eventKG-s:startUnitType</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="http://eventKG.l3s.uni-hannover.de/schema/endUnitType">eventKG-s:endUnitType</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+<section id="objectproperties">
+    <h2>Object Properties <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <ul class="hlist">
+        <li><a href="#endUnitType">endUnitType</a></li>
+        <li><a href="#extractedFrom">extractedFrom</a></li>
+        <li><a href="#startUnitType">startUnitType</a></li>
+        <li><a href="#has_creator">has_creator</a></li>
+        <li><a href="#interactionStatistics">interactionStatistics</a></li>
+        <li><a href="#interactionType">interactionType</a></li>
+        <li><a href="#mentions">mentions</a></li>
+        <li><a href="#hasSubEvent">hasSubEvent</a></li>
+        <li><a href="#roleType">roleType</a></li>
+        <li><a href="#hasMatchedURI">hasMatchedURI</a></li>
+        <li><a href="#object">object</a></li>
+        <li><a href="#subject">subject</a></li>
+        <li><a href="#sameAs">sameAs</a></li>
+        <li><a href="#detected">detected</a></li>
+    </ul>
+    <div class="entity property" id="endUnitType">
+        <h3>endUnitType<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://eventKG.l3s.uni-hannover.de/schema/endUnitType</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Role">sem:Role</a><sup class="sup-c" title="class">c</sup>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2006/time#TemporalUnit">time:TemporalUnit</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="extractedFrom">
+        <h3>extractedFrom<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://eventKG.l3s.uni-hannover.de/schema/extractedFrom</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    the source of the event information.
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Resource">rdfs:Resource</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="startUnitType">
+        <h3>startUnitType<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://eventKG.l3s.uni-hannover.de/schema/startUnitType</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Role">sem:Role</a><sup class="sup-c" title="class">c</sup>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2006/time#TemporalUnit">time:TemporalUnit</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="has_creator">
+        <h3>has_creator<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://rdfs.org/sioc/ns#has_creator</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://rdfs.org/sioc/ns#Post">sioc:Post</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://rdfs.org/sioc/ns#UserAccount">sioc:UserAccount</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="interactionStatistics">
+        <h3>interactionStatistics<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://schema.org/interactionStatistics</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    A tweet has interactionStatistics InteractionCounter.
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://rdfs.org/sioc/ns#Post">sioc:Post</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://schema.org/InteractionCounter">schema:InteractionCounter</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="interactionType">
+        <h3>interactionType<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://schema.org/interactionType</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://schema.org/InteractionCounter">schema:InteractionCounter</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://schema.org/Action">schema:Action</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="mentions">
+        <h3>mentions<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://schema.org/mentions</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://rdfs.org/sioc/ns#Post">sioc:Post</a><sup class="sup-c" title="class">c</sup>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Event">sem:Event</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://rdfs.org/sioc/ns#UserAccount">sioc:UserAccount</a><sup class="sup-c" title="class">c</sup>
+                    <a href="http://rdfs.org/sioc/types#Tag">sioc_t:Tag</a><sup class="sup-c" title="class">c</sup>
+                    <a href="http://www.ics.forth.gr/isl/oae/core#Entity">nee:Entity</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hasSubEvent">
+        <h3>hasSubEvent<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/hasSubEvent</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Event">sem:Event</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Event">sem:Event</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="roleType">
+        <h3>roleType<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/roleType</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Role">sem:Role</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/RoleType">sem:RoleType</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hasMatchedURI">
+        <h3>hasMatchedURI<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://www.ics.forth.gr/isl/oae/core#hasMatchedURI</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://www.ics.forth.gr/isl/oae/core#Entity">nee:Entity</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Resource">rdfs:Resource</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="object">
+        <h3>object<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#object</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://eventKG.l3s.uni-hannover.de/schema/Relation">eventKG-s:Relation</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Event">sem:Event</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="subject">
+        <h3>subject<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#subject</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://eventKG.l3s.uni-hannover.de/schema/Relation">eventKG-s:Relation</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Actor">sem:Actor</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="sameAs">
+        <h3>sameAs<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://www.w3.org/2002/07/owl#sameAs</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Resource">rdfs:Resource</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="detected">
+        <h3>detected<sup title="object property" class="sup-op">op</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>https://siebeniris.github.io/ConflictEventKG/detected</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://rdfs.org/sioc/ns#Post">sioc:Post</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Event">sem:Event</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
         </table>
     </div>
 </section>
 
+<section id="datatypeproperties">
+    <h2>Datatype Properties <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <ul class="hlist">
+        <li><a href="#created">created</a></li>
+        <li><a href="#description">description</a></li>
+        <li><a href="#id">id</a></li>
+        <li><a href="#name">name</a></li>
+        <li><a href="#userInteractionCount">userInteractionCount</a></li>
+        <li><a href="#hasBeginTimeStamp">hasBeginTimeStamp</a></li>
+        <li><a href="#hasEndTimeStamp">hasEndTimeStamp</a></li>
+        <li><a href="#confidence">confidence</a></li>
+        <li><a href="#detectedAs">detectedAs</a></li>
+        <li><a href="#label">label</a></li>
+    </ul>
+    <div class="entity property" id="created">
+        <h3>created<sup title="datatype property" class="sup-dp">dp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://purl.org/dc/terms/created</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://rdfs.org/sioc/ns#Post">sioc:Post</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Literal">rdfs:Literal</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="description">
+        <h3>description<sup title="datatype property" class="sup-dp">dp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://purl.org/dc/terms/description</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Event">sem:Event</a><sup class="sup-c" title="class">c</sup>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Resource">rdfs:Resource</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Literal">rdfs:Literal</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="id">
+        <h3>id<sup title="datatype property" class="sup-dp">dp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://rdfs.org/sioc/ns#id</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The id of a Tweet or the encrypted id of a user account.
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://rdfs.org/sioc/ns#UserAccount">sioc:UserAccount</a><sup class="sup-c" title="class">c</sup>
+                    <a href="http://rdfs.org/sioc/ns#Post">sioc:Post</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Literal">rdfs:Literal</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="name">
+        <h3>name<sup title="datatype property" class="sup-dp">dp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://rdfs.org/sioc/ns#name</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://rdfs.org/sioc/ns#UserAccount">sioc:UserAccount</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Literal">rdfs:Literal</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="userInteractionCount">
+        <h3>userInteractionCount<sup title="datatype property" class="sup-dp">dp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://schema.org/userInteractionCount</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The user interaction count of an interaction action such as Like, Reply and Share.
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://schema.org/InteractionCounter">schema:InteractionCounter</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Literal">rdfs:Literal</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hasBeginTimeStamp">
+        <h3>hasBeginTimeStamp<sup title="datatype property" class="sup-dp">dp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/hasBeginTimeStamp</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Role">sem:Role</a><sup class="sup-c" title="class">c</sup>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Literal">rdfs:Literal</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hasEndTimeStamp">
+        <h3>hasEndTimeStamp<sup title="datatype property" class="sup-dp">dp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://semanticweb.cs.vu.nl/2009/11/sem/hasEndTimeStamp</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Role">sem:Role</a><sup class="sup-c" title="class">c</sup>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Core">sem:Core</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Literal">rdfs:Literal</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="confidence">
+        <h3>confidence<sup title="datatype property" class="sup-dp">dp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://www.ics.forth.gr/isl/oae/core#confidence</code></td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://rdfs.org/sioc/ns#Post">sioc:Post</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Literal">rdfs:Literal</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="detectedAs">
+        <h3>detectedAs<sup title="datatype property" class="sup-dp">dp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://www.ics.forth.gr/isl/oae/core#detectedAs</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The detected entity mention using entity linking.
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://www.ics.forth.gr/isl/oae/core#Entity">nee:Entity</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Literal">rdfs:Literal</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="label">
+        <h3>label<sup title="datatype property" class="sup-dp">dp</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://www.w3.org/2000/01/rdf-schema#label</code></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    represents a label of either Resource or a hashtag.
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/RoleType">sem:RoleType</a><sup class="sup-c" title="class">c</sup>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Resource">rdfs:Resource</a><sup class="sup-c" title="class">c</sup>
+                    <a href="http://rdfs.org/sioc/types#Tag">sioc_t:Tag</a><sup class="sup-c" title="class">c</sup>
+                    <a href="http://semanticweb.cs.vu.nl/2009/11/sem/Actor">sem:Actor</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2000/01/rdf-schema#Literal">rdfs:Literal</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+  
+  <section id="namedindividuals">
+    <h2>Named Individuals <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <ul class="hlist">
+        <li><a href="#LikeAction">LikeAction</a></li>
+        <li><a href="#QuoteAction">QuoteAction</a></li>
+        <li><a href="#ReplyAction">ReplyAction</a></li>
+        <li><a href="#ShareAction">ShareAction</a></li>
+        <li><a href="#en">en</a></li>
+        <li><a href="#unitCentry">unitCentry</a></li>
+        <li><a href="#unitDay">unitDay</a></li>
+        <li><a href="#unitDecade">unitDecade</a></li>
+        <li><a href="#unitMonth">unitMonth</a></li>
+        <li><a href="#unitYear">unitYear</a></li>
+    </ul>
+    <div class="entity named_individual" id="unitCentry">
+        <h3>unitCentry<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://eventKG.l3s.uni-hannover.de/schema/unitCentry
+                  
+                  </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity named_individual" id="unitDecade">
+        <h3>unitDecade<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://eventKG.l3s.uni-hannover.de/schema/unitDecade
+                  
+                  </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity named_individual" id="LikeAction">
+        <h3>LikeAction<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://schema.org/LikeAction
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://schema.org/Action">schema:Action</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="ReplyAction">
+        <h3>ReplyAction<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://schema.org/ReplyAction
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://schema.org/Action">schema:Action</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="ShareAction">
+        <h3>ShareAction<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://schema.org/ShareAction
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://schema.org/Action">schema:Action</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="unitDay">
+        <h3>unitDay<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://www.w3.org/2006/time#unitDay
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://www.w3.org/2006/time#TemporalUnit">time:TemporalUnit</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="unitMonth">
+        <h3>unitMonth<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://www.w3.org/2006/time#unitMonth
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://www.w3.org/2006/time#TemporalUnit">time:TemporalUnit</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="unitYear">
+        <h3>unitYear<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://www.w3.org/2006/time#unitYear
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://www.w3.org/2006/time#TemporalUnit">time:TemporalUnit</a><br/>
+            </dd>
+        </table>
+    </div>
+    <div class="entity named_individual" id="en">
+        <h3>en<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      https://cidoc-crm.org/html/cidoc_crm_v7.1.1.html#en
+                  
+                  </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity named_individual" id="QuoteAction">
+        <h3>QuoteAction<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      https://siebeniris.github.io/ConflictEventKG/QuoteAction
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Classes(s)</dt>
+            <dd>
+                <a href="http://schema.org/Action">schema:Action</a><br/>
+            </dd>
+        </table>
+    </div>
+</section>
+  
   <section id="namespaces">
     <h2>Namespaces <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
     <dl>
@@ -456,20 +1400,18 @@ A Tweet can be liked, shared and replied.<br/>
         <dd><code>https://siebeniris.github.io/ConflictEventKG/</code></dd>
         <dt>cidoc-crm</dt>
         <dd><code>https://cidoc-crm.org/html/cidoc_crm_v7.1.1.html#</code></dd>
-        <dt>dbo</dt>
-        <dd><code>http://dbpedia.org/ontology/</code></dd>
         <dt>dc</dt>
         <dd><code>http://purl.org/dc/elements/1.1/</code></dd>
         <dt>dcterms</dt>
         <dd><code>http://purl.org/dc/terms/</code></dd>
         <dt>eventKG-s</dt>
         <dd><code>http://eventKG.l3s.uni-hannover.de/schema/</code></dd>
-        <dt>lcc-lr</dt>
-        <dd><code>https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/</code></dd>
         <dt>nee</dt>
         <dd><code>http://www.ics.forth.gr/isl/oae/core#</code></dd>
         <dt>owl</dt>
         <dd><code>http://www.w3.org/2002/07/owl#</code></dd>
+        <dt>prov</dt>
+        <dd><code>http://www.w3.org/ns/prov#</code></dd>
         <dt>rdf</dt>
         <dd><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></dd>
         <dt>rdfs</dt>
@@ -486,17 +1428,23 @@ A Tweet can be liked, shared and replied.<br/>
         <dd><code>http://rdfs.org/sioc/types#</code></dd>
         <dt>skos</dt>
         <dd><code>http://www.w3.org/2004/02/skos/core#</code></dd>
+        <dt>time</dt>
+        <dd><code>http://www.w3.org/2006/time#</code></dd>
         <dt>xsd</dt>
         <dd><code>http://www.w3.org/2001/XMLSchema#</code></dd>
     </dl>
 </section>
-
   <section id="legend">
-    <h2>Legend</h2>
-    <table class="entity">
-      <tr><td><sup class="sup-cl" title="Collections">cl</sup></td><td>Collections</td></tr>
-      <tr><td><sup class="sup-cp" title="Concepts">cp</sup></td><td>Concepts</td></tr>
-    </table>
+      <h2>Legend</h2>
+      <table class="entity">
+          <tr><td><sup class="sup-c" title="Classes">c</sup></td><td>Classes</td></tr>
+          <tr><td><sup class="sup-op" title="Object Properties">op</sup></td><td>Object Properties</td></tr>
+          <tr><td><sup class="sup-fp" title="Functional Properties">fp</sup></td><td>Functional Properties</td></tr>
+          <tr><td><sup class="sup-dp" title="Data Properties">dp</sup></td><td>Data Properties</td></tr>
+          <tr><td><sup class="sup-ap" title="Annotation Properties">dp</sup></td><td>Annotation Properties</td></tr>
+          <tr><td><sup class="sup-p" title="Properties">p</sup></td><td>Properties</td></tr>
+          <tr><td><sup class="sup-ni" title="Named Individuals">ni</sup></td><td>Named Individuals</td></tr>
+      </table>
   </section>
 </body>
 </html>
