@@ -11,6 +11,7 @@ nlp = spacy.load("en_core_web_md")
 # nlp.add_pipe("sentencizer")
 nlp.add_pipe("entityLinker", last=True)
 
+
 # entities_dict = defaultdict(dict)
 
 
@@ -101,6 +102,7 @@ def entity_linking_tweets():
         df_entities = pd.DataFrame.from_dict(entities_dict, orient="index")
         df_entities.to_csv(f"data/wikidata/entities_tweets_{date}.csv")
 
+
 def test_sample(text):
     entities_dict = defaultdict(dict)
     labels, ids = entity_linking_text(text, entities_dict)
@@ -110,8 +112,8 @@ def test_sample(text):
 
 
 if __name__ == '__main__':
-    text ="This was reportedly filmed in #Chuhuiiv, #Kharkiv region, east #Ukraine: results of a missile strike by #Russias armed forces"
+    text = "This was reportedly filmed in #Chuhuiiv, #Kharkiv region, east #Ukraine: results of a missile strike by #Russias armed forces"
     text1 = "This was reportedly filmed in Chuhuiiv, Kharkiv region, east Ukraine: results of a missile strike by Russias armed forces"
     test_sample(text)
-    print("*"*20)
+    print("*" * 20)
     test_sample(text1)

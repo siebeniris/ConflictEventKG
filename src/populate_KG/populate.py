@@ -13,7 +13,7 @@ from rdflib import URIRef, Literal
 
 g = rdflib.Graph()
 # g.parse("data/schema/schema_CEKG.owl", format="application/rdf+xml")
-g.parse("data/schema/schema_CEKG.owl", format="ttl")
+g.parse("data/schema/schema_CEKG.ttl", format="ttl")
 
 sem = Namespace("http://semanticweb.cs.vu.nl/2009/11/sem/")
 sioc = Namespace('http://rdfs.org/sioc/ns#')
@@ -109,11 +109,14 @@ def define_event_resources():
         extractedFrom = event_dict["extractedFrom"]
         # event
         event_instance = URIRef(CEKG + f"event_{event_id}")
+        g.add((event_instance, RDF.type, sem.Event))
         g.add((event_instance, DCTERMS.description, Literal(event_text)))
         g.add((event_instance, eventKG_s.extractedFrom, URIRef(extractedFrom)))
         g.add((event_instance, sem.hasBeginTimeStamp, Literal(date)))
         g.add((event_instance, sem.hasEndTimeStamp, Literal(date)))
         g.add((event_instance, eventKG_s.startUnitType, TIME.unitDay))
+        g.add((event_instance, eventKG_s.endUnitType, TIME.unitDay))
+
         main_event_id = main_event_dict[main_event]
         main_event_instance = URIRef(CEKG + f"main_event_{main_event_id}")
         g.add((main_event_instance, sem.hasSubEvent, event_instance))
@@ -140,6 +143,8 @@ def define_event_resources():
         g.add((relation_instance, sem.hasBeginTimeStamp, Literal(date)))
         g.add((relation_instance, sem.hasEndTimeStamp, Literal(date)))
         g.add((relation_instance, eventKG_s.startUnitType, TIME.unitDay))
+        g.add((relation_instance, eventKG_s.endUnitType, TIME.unitDay))
+
 
 
 def define_tweet_resources():
@@ -173,6 +178,7 @@ def define_tweet_resources():
 
         user_id = author_dict[author_id]
         user_instance = URIRef(CEKG + f"tweet_user_{user_id}")
+        g.add((tweet_instance, RDF.type, sioc.Post))
         g.add((tweet_instance, sioc.has_creator, user_instance))
         g.add((tweet_instance, sioc.id, Literal(tweet_id)))
         g.add((tweet_instance, DCTERMS.created, Literal(created_at)))
@@ -207,7 +213,7 @@ def define_tweet_resources():
             g.add((share_instance, RDF.type, schema.IneractionCounter))
             g.add((share_instance, schema.interactionType, schema.ShareAction))
             g.add((share_instance, schema.userInteractionCount, Literal(share_count)))
-            g.add((share_instance, schema.interactionStatistics, share_instance))
+            g.add((tweet_instance, schema.interactionStatistics, share_instance))
 
         if reply_count is not None:
             reply_count = int(reply_count)
@@ -215,15 +221,15 @@ def define_tweet_resources():
             g.add((reply_instance, RDF.type, schema.IneractionCounter))
             g.add((reply_instance, schema.interactionType, schema.ReplyAction))
             g.add((reply_instance, schema.userInteractionCount, Literal(reply_count)))
-            g.add((reply_instance, schema.interactionStatistics, reply_instance))
+            g.add((tweet_instance, schema.interactionStatistics, reply_instance))
 
         if quote_count is not None:
             quote_count = int(quote_count)
             quote_instance = URIRef(CEKG + f'quote_{tweet_id}')
             g.add((quote_instance, RDF.type, schema.IneractionCounter))
-            g.add((quote_instance, schema.interactionType, cekg.ReplyAction))
-            g.add((quote_instance, schema.userInteractionCount, Literal(quote_instance)))
-            g.add((quote_instance, schema.interactionStatistics, quote_instance))
+            g.add((quote_instance, schema.interactionType, cekg.QuoteAction))
+            g.add((quote_instance, schema.userInteractionCount, Literal(quote_count)))
+            g.add((tweet_instance, schema.interactionStatistics, quote_instance))
 
         for wikidata_id in wikidata_ids:
             ent_instance = URIRef(wikidata_prefix + f"{wikidata_id}")
